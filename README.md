@@ -1,2 +1,2 @@
 # i
-Script for printing system info
+Script for printing system info.
