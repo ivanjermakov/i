@@ -7,18 +7,12 @@ import psutil
 
 
 def out(blocks: list) -> None:
-    print_for_each(blocks, lambda b: f'┌{"─" * (len(b) + 2)}┐')
-    print_for_each(blocks, lambda b: f'│ {b} │')
-    print_for_each(blocks, lambda b: f'└{"─" * (len(b) + 2)}┘')
-
-
-def print_for_each(blocks: list, format_fn: Callable[[str], str]) -> None:
-    for b in blocks:
-        print(format_fn(b), end='')
+    print()
+    for block in blocks:
+        print(f'    {block}')
     print()
 
-
-date_time = time.strftime("%B %d, %Y %H:%M")
+date_time = time.strftime("%b %d, %H:%M")
 
 battery = psutil.sensors_battery()
 plugged = "c" if battery.power_plugged else ""
@@ -32,9 +26,8 @@ cpu_percent = round(psutil.cpu_percent(interval=.1))
 cpu_temp = round(cpu_temp())
 
 out([
-    date_time,
-    percent + plugged,
-    f'{used_memory}MB/{available_memory}MB',
-    f'{cpu_percent}%',
-    f'{cpu_temp}°',
+    f'd {date_time}',
+    f'b {percent}{plugged}',
+    f'm {used_memory}/{available_memory}',
+    f'c {cpu_percent}% {cpu_temp}°'
 ])
