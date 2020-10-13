@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import time
 from typing import *
+from cpu_temp import *
 
 import psutil
 
@@ -28,10 +29,12 @@ used_memory = round(memory.used / 1000000)
 available_memory = round(memory.available / 1000000)
 
 cpu_percent = round(psutil.cpu_percent(interval=.1))
+cpu_temp = round(cpu_temp())
 
 out([
     date_time,
     percent + plugged,
     f'{used_memory}MB/{available_memory}MB',
-    f'{cpu_percent}%'
+    f'{cpu_percent}%',
+    f'{cpu_temp}°',
 ])
