@@ -10,7 +10,7 @@ def out(blocks: list) -> None:
     print()
     for block in blocks:
         print(f'    {block}')
-    print()
+    print(' ')
 
 date_time = time.strftime("%b %d, %H:%M")
 
