@@ -21,6 +21,7 @@ percent = f'{round(battery.percent)}%'
 memory = psutil.virtual_memory()
 used_memory = round(memory.used / 1000000)
 available_memory = round(memory.available / 1000000)
+total_memory = used_memory + available_memory
 
 cpu_percent = round(psutil.cpu_percent(interval=.1))
 cpu_temp = round(cpu_temp())
@@ -28,6 +29,6 @@ cpu_temp = round(cpu_temp())
 out([
     f'd {date_time}',
     f'b {percent}{plugged}',
-    f'm {used_memory}/{available_memory}',
+    f'm {used_memory}/{total_memory}',
     f'c {cpu_percent}% {cpu_temp}°'
 ])
