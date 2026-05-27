@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
+
 import time
 from typing import *
-from cpu_temp import *
+from psutil import *
 
 import psutil
-
 
 def out(blocks: list) -> None:
     print()
@@ -12,19 +12,19 @@ def out(blocks: list) -> None:
         print(f'    {block}')
     print(' ')
 
-date_time = time.strftime("%b %d, %H:%M")
+date_time = time.strftime("%a, %b %d, %H:%M")
 
 battery = psutil.sensors_battery()
 plugged = "c" if battery.power_plugged else ""
 percent = f'{round(battery.percent)}%'
 
 memory = psutil.virtual_memory()
-used_memory = round(memory.used / 1000000)
-available_memory = round(memory.available / 1000000)
+used_memory = round(memory.used / 1e6)
+available_memory = round(memory.available / 1e6)
 total_memory = used_memory + available_memory
 
 cpu_percent = round(psutil.cpu_percent(interval=.1))
-cpu_temp = round(cpu_temp())
+cpu_temp = round(psutil.sensors_temperatures()["dell_smm"][0].current)
 
 out([
     f'd {date_time}',
